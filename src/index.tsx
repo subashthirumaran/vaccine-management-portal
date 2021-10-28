@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LoginPage from "./components/LoginPage";
 import UserRegisterPage from "./components/RegisterPage";
 import LandingPage from "./components/LandingPage";
@@ -11,10 +11,12 @@ import BeneficiariesPage from "./components/BeneficiariesPage";
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <Route path="/" component={LandingPage} />
-      <Route path="/login" component={LoginPage} />
-      <Route path="/signup" component={UserRegisterPage} />
-      <Route path="/beneficiaries" component={BeneficiariesPage} />
+      <Switch>
+        <Route path="/login" component={LoginPage} />
+        <Route path="/signup" component={UserRegisterPage} />
+        <Route path="/beneficiaries" component={BeneficiariesPage} />
+        <Route path="/" exact component={LandingPage} />
+      </Switch>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
