@@ -7,17 +7,21 @@ import LoginPage from "./components/LoginPage";
 import UserRegisterPage from "./components/RegisterPage";
 import LandingPage from "./components/LandingPage";
 import BeneficiariesPage from "./components/BeneficiariesPage";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <Switch>
-        <Route path="/login" component={LoginPage} />
-        <Route path="/signup" component={UserRegisterPage} />
-        <Route path="/beneficiaries" component={BeneficiariesPage} />
-        <Route path="/" exact component={LandingPage} />
-      </Switch>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Switch>
+          <Route path="/login" component={LoginPage} />
+          <Route path="/signup" component={UserRegisterPage} />
+          <Route path="/beneficiaries" component={BeneficiariesPage} />
+          <Route path="/" exact component={LandingPage} />
+        </Switch>
+      </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
