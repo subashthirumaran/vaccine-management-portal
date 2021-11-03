@@ -4,9 +4,11 @@ import {
   Table,
   TableBody,
   TableCell,
+  Link,
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,12 +23,22 @@ import { PageWrapper } from "./styles";
 
 function createData(
   name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
+  dob: string,
+  gender: string,
+  idNumber: String,
+  address: string,
+  appointment1: string,
+  appointment2: string
 ) {
-  return { name, calories, fat, carbs, protein };
+  return {
+    name,
+    dob,
+    gender,
+    idNumber,
+    address,
+    appointment1,
+    appointment2,
+  };
 }
 
 const BeneficiariesPage = () => {
@@ -35,12 +47,16 @@ const BeneficiariesPage = () => {
     uiControls: { bookVaccineDialog, addBeneficiaryDialog },
   } = useSelector((state: RootState) => state);
 
-  const rows = [
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Eclair", 262, 16.0, 24, 6.0),
-    createData("Cupcake", 305, 3.7, 67, 4.3),
-    createData("Gingerbread", 356, 16.0, 49, 3.9),
+  const rows: any = [
+    createData(
+      "Subash Chandran T",
+      "02-11-1993",
+      "Male",
+      "123456789112",
+      "7, 3rd Cross, Vidhya Vihar, Pilani, Rajasthan",
+      "Booked",
+      "Not Booked"
+    ),
   ];
 
   return (
@@ -76,15 +92,17 @@ const BeneficiariesPage = () => {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>Dessert (100g serving)</TableCell>
-                  <TableCell align="right">Calories</TableCell>
-                  <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                  <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                  <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell align="right">Date of Birth</TableCell>
+                  <TableCell align="right">Gender</TableCell>
+                  <TableCell align="right">ID Number</TableCell>
+                  <TableCell align="right">Address</TableCell>
+                  <TableCell align="right">First Dose</TableCell>
+                  <TableCell align="right">Second Dose</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
+                {rows.map((row: any) => (
                   <TableRow
                     key={row.name}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -92,10 +110,40 @@ const BeneficiariesPage = () => {
                     <TableCell component="th" scope="row">
                       {row.name}
                     </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
-                    <TableCell align="right">{row.protein}</TableCell>
+                    <TableCell align="right">{row.dob}</TableCell>
+                    <TableCell align="right">{row.gender}</TableCell>
+                    <TableCell align="right">{row.idNumber}</TableCell>
+                    <TableCell align="right">{row.address}</TableCell>
+                    <TableCell align="right">
+                      <Tooltip
+                        leaveDelay={3000}
+                        title={
+                          <Box sx={{ px: 3, py: 2 }}>
+                            <Box sx={{ fontSize: 16, fontWeight: "bold" }}>
+                              Covishield{" "}
+                              {/* <Box
+                                sx={{
+                                  display: "inline",
+                                  fontStyle: "italic",
+                                  fontSize: 12,
+                                }}
+                              >
+                                1st Dose
+                              </Box> */}
+                            </Box>
+                            <Box sx={{ mt: 1 }}>
+                              03 November 2021, 9 AM - 6 PM
+                            </Box>
+                            <Box sx={{ mt: 1 }}>
+                              BITS Campus, Vidya Vihar, Pilani
+                            </Box>
+                          </Box>
+                        }
+                      >
+                        <Button> {row.appointment1}</Button>
+                      </Tooltip>
+                    </TableCell>
+                    <TableCell align="right">{row.appointment2}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
